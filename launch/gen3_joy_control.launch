@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+     <!-- joy node -->
+    <node respawn="true" pkg="joy"
+        type="joy_node" name="joy_control" >
+        <param name="dev" type="string" value="/dev/input/js0" />
+    </node>
+
+    <!--Launch move_group -->
+    <include file="$(find ukaea_robot_moveit)/launch/demo.launch"> 
+    </include>
+
+</launch>

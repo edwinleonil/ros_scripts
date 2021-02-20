@@ -20,7 +20,7 @@ moveit_commander.roscpp_initialize(sys.argv)
 rospy.init_node("move_group_python_interface", anonymous=True)
 robot = moveit_commander.RobotCommander()
 scene = moveit_commander.PlanningSceneInterface()
-group_name = "panda_arm"
+group_name = "arm"
 move_group = moveit_commander.MoveGroupCommander(group_name)
 
 
@@ -160,7 +160,7 @@ if __name__ == "__main__":
         # set_max_velocity()
         # set_planning_time()
         # set_num_planning_attempts()
-        # get_active_joints()
+        get_active_joints()
         # get_joints()
         # get_end_effector_link()
         # get_current_rpy()
@@ -169,7 +169,7 @@ if __name__ == "__main__":
         # get_planning_time()
         
         # set_pose_target_01()  # go to target position xyz
-        set_position_target()
+        # set_position_target()
         # set_pose_target_02()  # go to target position xyz
         # rospy.sleep(2)
         # home_position()  # return to home position

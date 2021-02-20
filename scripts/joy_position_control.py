@@ -16,7 +16,7 @@ group_name = "arm"
 move_group = moveit_commander.MoveGroupCommander(group_name)
 
 
-joy_arm = [0,0,0,0,0,0,0]
+joy_arm = [0,0,0,0,0,0,0,0]
 target_position = [0,0,0]
 def joy_callback(joy_msg):
     global joy_arm
@@ -43,18 +43,19 @@ def main():
         
         xyz = move_group.get_current_pose(end_effector_link=end_effector_link)
         target_orientation = [0.0, math.pi/2, 0.0]
-        target_position[0] = xyz.pose.position.x + joy_arm[0]*0.1
-        target_position[1] = xyz.pose.position.y + joy_arm[1]*0.1
-        target_position[2] = xyz.pose.position.z + 0
+        target_position[0] = xyz.pose.position.x + joy_arm[7]*0.05
+        target_position[1] = xyz.pose.position.y + joy_arm[6]*0.05
+        target_position[2] = xyz.pose.position.z + joy_arm[1]*0.1
         rospy.loginfo("\nXXXXXXXXXX: %s\n",target_position)
         target_pose = target_position + target_orientation
         
         move_group.set_pose_target(target_pose, end_effector_link)
-        move_group.go(wait=True)
+        # move_group.go(wait=True)
+        move_group.go()
         # rospy.loginfo("\nJoint Values: %s\n",target_xyz.pose.position)
         
         move_group.clear_pose_targets()
-        rate.sleep()
+        # rate.sleep()
     rospy.spin()
 
 if __name__ == "__main__":

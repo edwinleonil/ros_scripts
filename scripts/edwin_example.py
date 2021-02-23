@@ -20,7 +20,7 @@ moveit_commander.roscpp_initialize(sys.argv)
 rospy.init_node("move_group_python_interface", anonymous=True)
 robot = moveit_commander.RobotCommander()
 scene = moveit_commander.PlanningSceneInterface()
-group_name = "arm"
+group_name = "hand"
 move_group = moveit_commander.MoveGroupCommander(group_name)
 
 
@@ -42,6 +42,13 @@ def get_joints():
 
 def get_joint_Values():
     current_joint_val = move_group.get_current_joint_values()
+    rospy.loginfo("\nJoint Values: %s\n",current_joint_val)
+
+def set_joint_value_target():	
+    current_joint_val = move_group.set_joint_value_target("qbhand_synergy_joint",0.3)
+    move_group.go(current_joint_val, wait=True)
+    move_group.stop()
+    move_group.clear_pose_targets()
     rospy.loginfo("\nJoint Values: %s\n",current_joint_val)
 
 
@@ -84,12 +91,11 @@ def home_position():
 
 #  Doesn't work properlly
 def set_position_target():
-    end_effector_link = move_group.get_end_effector_link()
     target_position[0] = 0.4
     target_position[1] = 0.1
     target_position[2] = 0.5
-    move_group.set_position_target(target_position, end_effector_link)
-    move_group.go(wait=True)
+    move_group.set_position_target(target_position, end_effector_link="tool_tcp")
+
 
 def set_pose_target_01():
     move_group.set_max_velocity_scaling_factor(1)
@@ -160,16 +166,17 @@ if __name__ == "__main__":
         # set_max_velocity()
         # set_planning_time()
         # set_num_planning_attempts()
-        get_active_joints()
+        # get_active_joints()
         # get_joints()
         # get_end_effector_link()
         # get_current_rpy()
         # get_joint_Values()
+        set_joint_value_target()
         # get_current_pose()
         # get_planning_time()
         
         # set_pose_target_01()  # go to target position xyz
-        # set_position_target()
+        
         # set_pose_target_02()  # go to target position xyz
         # rospy.sleep(2)
         # home_position()  # return to home position

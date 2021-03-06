@@ -14,7 +14,7 @@ moveit_commander.roscpp_initialize(sys.argv)
 rospy.init_node("move_group_python_interface", anonymous=True)
 robot = moveit_commander.RobotCommander()
 scene = moveit_commander.PlanningSceneInterface()
-group_name = "arm"
+group_name = "kinova_arm"
 move_group = moveit_commander.MoveGroupCommander(group_name)
 current_xyz = [0, 0, 0]
 target_xyz = [0, 0, 0]
@@ -34,8 +34,8 @@ def go_to_target_position():
     
     current_pose = move_group.get_current_pose()
     
-    target_xyz[0] = current_pose.pose.position.x + joy_data[1]
-    target_xyz[1] = current_pose.pose.position.y + joy_data[2]
+    target_xyz[0] = current_pose.pose.position.x + joy_data[0]
+    target_xyz[1] = current_pose.pose.position.y + joy_data[1]
     target_xyz[2] = current_pose.pose.position.z + 0.0
     
     # target_orientation = [math.pi, -math.pi/2, 0.0]

@@ -34,7 +34,7 @@ def main():
         rospy.Subscriber("joy", Joy, joy_callback)
         current_joint_val = move_group.get_current_joint_values()
         # rospy.loginfo("\nJoint Values: %s\n",current_joint_val)
-        val = current_joint_val[28] + joy_hand[1]*0.1
+        val = current_joint_val[28] + 0.2 # joy_hand[1]*0.1
         if val > 0.58:
             val = 0.58
         if val < 0.01:
